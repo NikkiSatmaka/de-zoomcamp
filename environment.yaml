@@ -1,0 +1,26 @@
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - pip
+  - ipykernel
+
+  - black
+  - isort
+  - nbqa
+
+  # - pyarrow
+  - pandas
+  - mage-ai
+  # - sqlalchemy
+  # - psycopg
+  # - airflow
+  # - sqlalchemy=1
+  - psycopg2
+  # - prefect
+  # - pandas-gbq
+
+  # - pip:
+  #   - prefect-sqlalchemy
+  #   - prefect-gcp[cloud_storage]
