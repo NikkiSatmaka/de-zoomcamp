@@ -162,6 +162,15 @@ terraform apply
 
 Paste the output of this command into the homework submission form.
 
+```
+google_bigquery_dataset.demo_dataset: Creating...
+google_storage_bucket.demo-bucket: Creating...
+google_bigquery_dataset.demo_dataset: Creation complete after 4s [id=***]
+google_storage_bucket.demo-bucket: Creation complete after 4s [id=***]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+```
+
 ## Submitting the solutions
 
 * Form for submitting: https://courses.datatalks.club/de-zoomcamp-2024/homework/hw01
