@@ -1,4 +1,4 @@
 ny_taxi_postgres_data/
 data_pgadmin/
-*.csv
+*.csv*
 *.parquet

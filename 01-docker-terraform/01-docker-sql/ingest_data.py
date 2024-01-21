@@ -3,6 +3,7 @@
 
 import argparse
 import subprocess
+from pathlib import Path
 from time import time
 
 import pandas as pd
@@ -17,11 +18,9 @@ def main(params):
     db = params.db
     table_name = params.table_name
     url = params.url
-    csv_name = "output.csv"
-    csv_gz_name = csv_name + ".gz"
+    csv_name = "output" + "".join(Path(url).suffixes)
 
-    subprocess.run(["wget", url, "-O", csv_gz_name])
-    subprocess.run(["gzip", "-d", csv_gz_name])
+    subprocess.run(["wget", url, "-O", csv_name])
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
