@@ -1,15 +1,15 @@
 services:
   magic:
-    image: mageai/mageai:latest
-    command: mage start ${PROJECT_NAME}
-    env_file:
-      - .env
     build:
       context: .
       dockerfile: Dockerfile
+    command: mage start ${PROJECT_NAME}
+    container_name: ${PROJECT_NAME}-magic
+    env_file:
+      - .env
     environment:
       - USER_CODE_PATH=/home/src/${PROJECT_NAME}
-      - POSTGRES_DBNAME=${POSTGRES_DBNAME}
+      - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -28,7 +28,7 @@ services:
     env_file:
       - .env
     environment:
-      - POSTGRES_DB=${POSTGRES_DBNAME}
+      - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
