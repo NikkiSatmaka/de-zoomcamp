@@ -19,7 +19,7 @@ services:
       - "6789:6789"
     volumes:
       - .:/home/src:rw
-      - ../../01-docker-terraform/02-terraform-gcp/keys/google_credentials.json:/home/src/google_credentials.json:ro
+      - ../../01-docker-terraform/02-terraform-gcp/keys/google_credentials.json:${GOOGLE_APPLICATION_CREDENTIALS}:ro
     restart: on-failure:5
   postgres:
     image: postgres:14
