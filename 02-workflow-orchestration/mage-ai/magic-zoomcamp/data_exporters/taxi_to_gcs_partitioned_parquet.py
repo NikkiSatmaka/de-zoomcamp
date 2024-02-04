@@ -7,9 +7,8 @@ if "data_exporter" not in globals():
     from mage_ai.data_preparation.decorators import data_exporter
 
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/src/google_credentials.json"
-bucket_name = 'de-zoomcamp-411717-terra-bucket'
-project_id = 'de-zoomcamp-411717'
+bucket_name = os.getenv("GCS_BUCKET_NAME")
+project_id = os.getenv("GOOGLE_SERVICE_PROJECT_ID")
 
 table_name = "nyc_taxi_data"
 

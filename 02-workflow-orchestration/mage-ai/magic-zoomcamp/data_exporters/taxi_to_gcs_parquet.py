@@ -1,3 +1,4 @@
+import os
 from mage_ai.settings.repo import get_repo_path
 from mage_ai.io.config import ConfigFileLoader
 from mage_ai.io.google_cloud_storage import GoogleCloudStorage
@@ -19,7 +20,7 @@ def export_data_to_google_cloud_storage(df: DataFrame, **kwargs) -> None:
     config_path = path.join(get_repo_path(), 'io_config.yaml')
     config_profile = 'dev'
 
-    bucket_name = 'de-zoomcamp-411717-terra-bucket'
+    bucket_name = os.getenv("GCS_BUCKET_NAME")
     object_key = 'nyc_taxi_data.parquet'
 
     GoogleCloudStorage.with_config(ConfigFileLoader(config_path, config_profile)).export(
