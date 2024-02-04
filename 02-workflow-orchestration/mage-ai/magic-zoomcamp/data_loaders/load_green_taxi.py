@@ -1,8 +1,10 @@
 import io
 from datetime import datetime
 from urllib.parse import urljoin
+
 import pandas as pd
 import requests
+
 if "data_loader" not in globals():
     from mage_ai.data_preparation.decorators import data_loader
 if "test" not in globals():
@@ -16,9 +18,9 @@ def load_data_from_api(*args, **kwargs):
     """
     start_date = datetime(2020, 10, 1)
     end_date = datetime(2020, 12, 1)
-    date_range = list(pd.date_range(start_date, end_date, freq='MS'))
+    date_range = list(pd.date_range(start_date, end_date, freq="MS"))
     base_url = "https://github.com/DataTalksClub/nyc-tlc-data/releases/download/green/"
-    
+
     taxi_dtypes = {
         "VendorID": "float64",
         "store_and_fwd_flag": "object",
@@ -46,8 +48,16 @@ def load_data_from_api(*args, **kwargs):
     for date in date_range:
         url_fpath = f'green_tripdata_{date.strftime("%Y-%m")}.csv.gz'
         url = urljoin(base_url, url_fpath)
-        df_taxi.append(pd.read_csv(url, sep=",", compression="gzip", dtype=taxi_dtypes, parse_dates=parse_dates))
-        
+        df_taxi.append(
+            pd.read_csv(
+                url,
+                sep=",",
+                compression="gzip",
+                dtype=taxi_dtypes,
+                parse_dates=parse_dates,
+            )
+        )
+
     return pd.concat(df_taxi)
 
 
