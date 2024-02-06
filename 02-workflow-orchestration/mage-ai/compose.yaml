@@ -9,7 +9,7 @@ services:
       - .env
     environment:
       - USER_CODE_PATH=/home/src/${PROJECT_NAME}
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DBNAME=${POSTGRES_DBNAME}
       - POSTGRES_SCHEMA=${POSTGRES_SCHEMA}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -19,7 +19,7 @@ services:
       - "6789:6789"
     volumes:
       - .:/home/src:rw
-      - ../../01-docker-terraform/02-terraform-gcp/keys/google_credentials.json:${GOOGLE_APPLICATION_CREDENTIALS}:ro
+      - ${HOME}/workspace/de-zoomcamp-2024/01-docker-terraform/02-terraform-gcp/keys/google_credentials.json:/home/src/google_credentials.json:ro
     restart: on-failure:5
   postgres:
     image: postgres:14
@@ -28,7 +28,7 @@ services:
     env_file:
       - .env
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_DB=${POSTGRES_DBNAME}
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
