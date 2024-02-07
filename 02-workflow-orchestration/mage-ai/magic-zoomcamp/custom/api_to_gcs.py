@@ -22,6 +22,11 @@ def get_file_from_api(service, date, session):
     return session.get(url)
 
 
+def get_files_from_api(service, date_range, session):
+    for date in date_range:
+        yield get_file_from_api(service, date, session)
+
+
 def upload_to_gcs(bucket, object_key, response_object):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket)
@@ -41,14 +46,13 @@ def web_to_gcs(*args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your custom logic here
-    service = kwargs['service']
-    year = kwargs['year']
+    service = kwargs["service"]
+    year = kwargs["year"]
     start_date = datetime(year, 1, 1)
     end_date = datetime(year, 12, 1)
     date_range = list(pd.date_range(start_date, end_date, freq="MS"))
     with requests.Session() as session:
-        for date in date_range:
-            response = get_file_from_api(service, date, session)
+        for response in get_files_from_api(service, date_range, session):
             object_key = Path(response.url).name
             upload_to_gcs(BUCKET, object_key, response)
             print(f"Uploading {object_key} successful")
