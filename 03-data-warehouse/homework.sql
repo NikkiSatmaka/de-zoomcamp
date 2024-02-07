@@ -46,8 +46,8 @@ ORDER BY table_name, partition_id;
 -- Write a query to retrieve the distinct PULocationID between lpep_pickup_datetime 06/01/2022 and 06/30/2022 (inclusive)
 SELECT DISTINCT `PULocationID`
 FROM `de-zoomcamp-411717.nytaxi.green_tripdata_non_partitioned`
-WHERE `lpep_pickup_datetime` BETWEEN '2022-06-01' AND '2022-06-30'
+WHERE `lpep_pickup_datetime` BETWEEN '2022-06-01' AND '2022-06-30';
 
 SELECT DISTINCT `PULocationID`
 FROM `de-zoomcamp-411717.nytaxi.green_tripdata_partitioned_clustered`
-WHERE `lpep_pickup_datetime` BETWEEN '2022-06-01' AND '2022-06-30'
+WHERE `lpep_pickup_datetime` BETWEEN '2022-06-01' AND '2022-06-30';
