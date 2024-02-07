@@ -35,8 +35,10 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-02-06T17:33:31+00:00'
+updated_at: '2024-02-07T06:40:24+00:00'
 uuid: taxi_to_gcs
-variables: {}
+variables:
+  service: green
+  year: 2022
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []
