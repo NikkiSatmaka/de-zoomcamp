@@ -7,13 +7,13 @@ blocks:
   executor_type: local_python
   has_callback: false
   language: python
-  name: api_to_gcs
+  name: web_to_gcs
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: custom
   upstream_blocks: []
-  uuid: api_to_gcs
+  uuid: web_to_gcs
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
@@ -35,10 +35,10 @@ settings:
 spark_config: {}
 tags: []
 type: python
-updated_at: '2024-02-07T06:40:24+00:00'
 uuid: taxi_to_gcs
 variables:
   service: green
+  source: original
   year: 2022
 variables_dir: /home/src/mage_data/magic-zoomcamp
 widgets: []
