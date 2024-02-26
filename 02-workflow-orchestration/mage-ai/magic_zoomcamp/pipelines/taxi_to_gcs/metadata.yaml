@@ -9,11 +9,26 @@ blocks:
   language: python
   name: web_to_gcs
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: custom
   upstream_blocks: []
   uuid: web_to_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: mysterious ancient
+  retry_config: null
+  status: updated
+  timeout: null
+  type: scratchpad
+  upstream_blocks: []
+  uuid: mysterious_ancient
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
