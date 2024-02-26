@@ -132,3 +132,6 @@ dev:
   POSTGRES_HOST: "{{ env_var('POSTGRES_HOST') }}"
   POSTGRES_PORT: "{{ env_var('POSTGRES_PORT') }}"
   GOOGLE_SERVICE_ACC_KEY_FILEPATH: "{{ env_var('GOOGLE_APPLICATION_CREDENTIALS') }}"
+  GOOGLE_SERVICE_ACC_KEY:
+    project_id: "{{ env_var('GOOGLE_SERVICE_PROJECT_ID') }}"
+    bucket_name: "{{ env_var('GCS_BUCKET_NAME') }}"
