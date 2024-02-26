@@ -86,7 +86,9 @@ def export_to_postgres(idx, df, table_name, engine, is_replace=False):
         df.head(n=0).to_sql(
             name=table_name, con=engine, if_exists="replace", index=False
         )
+        print("Created table")
     df.to_sql(name=table_name, con=engine, if_exists="append", index=False)
+    print(f"inserted another chunk")
 
 
 def export_data_to_postgres(
@@ -95,8 +97,8 @@ def export_data_to_postgres(
     batch_size,
     table_name,
     engine,
-    is_replace=False,
     source="original",
+    is_replace=False,
 ):
     data = response_object.content
     if source != "original":
@@ -128,8 +130,13 @@ def web_to_postgres(*args, **kwargs):
     date_range = list(pd.date_range(start_date, end_date, freq="MS"))
     engine = create_postgres_engine()
     with requests.Session() as session:
+        responses = get_files_from_web(service, date_range, session, source)
+        response = next(responses)
+        export_data_to_postgres(
+            service, response, batch_size, table_name, engine, source, is_replace
+        )
         for response in get_files_from_web(service, date_range, session, source):
             export_data_to_postgres(
-                service, response, batch_size, table_name, engine, is_replace, source
+                service, response, batch_size, table_name, engine, source, False
             )
             print(f"Exporting {service} successful")
