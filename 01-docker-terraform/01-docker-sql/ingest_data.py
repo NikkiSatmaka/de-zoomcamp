@@ -38,7 +38,7 @@ def main(params):
         try:
             df = next(df_iter)
         except StopIteration:
-            print(f"finished all iteration")
+            print("finished all iteration")
             break
         else:
             df.to_sql(name=table_name, con=engine, if_exists="append")
