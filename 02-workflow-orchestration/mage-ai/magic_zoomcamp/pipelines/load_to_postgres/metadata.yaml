@@ -93,5 +93,5 @@ tags:
 - etl
 type: python
 uuid: load_to_postgres
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []

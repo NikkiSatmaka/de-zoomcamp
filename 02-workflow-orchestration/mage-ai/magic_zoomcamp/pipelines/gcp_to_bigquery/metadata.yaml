@@ -81,5 +81,5 @@ tags:
 type: python
 updated_at: '2024-01-21T15:42:55+00:00'
 uuid: gcp_to_bigquery
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []

@@ -37,5 +37,5 @@ tags: []
 type: python
 updated_at: '2024-01-30T04:06:12+00:00'
 uuid: test_config
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []

@@ -76,5 +76,5 @@ tags:
 type: python
 updated_at: '2024-01-29 04:34:20'
 uuid: load_to_gcp_parameterized
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []

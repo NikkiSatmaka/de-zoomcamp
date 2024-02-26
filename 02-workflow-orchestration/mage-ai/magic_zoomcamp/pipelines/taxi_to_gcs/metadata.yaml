@@ -55,5 +55,5 @@ variables:
   service: green
   source: original
   year: 2022
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []

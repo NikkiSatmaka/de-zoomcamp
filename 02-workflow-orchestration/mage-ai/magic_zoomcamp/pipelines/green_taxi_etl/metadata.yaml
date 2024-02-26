@@ -104,5 +104,5 @@ tags:
 type: python
 updated_at: '2024-02-04T17:23:23+00:00'
 uuid: green_taxi_etl
-variables_dir: /home/src/mage_data/magic-zoomcamp
+variables_dir: /home/src/mage_data/magic_zoomcamp
 widgets: []
