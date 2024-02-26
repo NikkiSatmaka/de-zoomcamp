@@ -1,0 +1,81 @@
+triggers:
+- envs: []
+  last_enabled_at: 2024-02-26 16:07:47.556013
+  name: yellow_2019
+  pipeline_uuid: taxi_to_postgres
+  schedule_interval: '@once'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-25 00:00:00
+  status: active
+  variables:
+    batch_size: 64000
+    is_replace: true
+    service: yellow
+    source: backup
+    year: 2019
+- envs: []
+  last_enabled_at: 2024-02-26 02:46:26.095154+00:00
+  name: green_2019
+  pipeline_uuid: taxi_to_postgres
+  schedule_interval: '@once'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-25
+  status: inactive
+  variables:
+    batch_size: 64000
+    is_replace: true
+    service: green
+    source: backup
+    year: 2019
+- envs: []
+  last_enabled_at: 2024-02-26 02:47:56.625592+00:00
+  name: fhv_2019
+  pipeline_uuid: taxi_to_postgres
+  schedule_interval: '@once'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-25
+  status: inactive
+  variables:
+    batch_size: 64000
+    is_replace: true
+    service: fhv
+    source: backup
+    year: 2019
+- envs: []
+  last_enabled_at: 2024-02-26 02:47:56.649377+00:00
+  name: yellow_2020
+  pipeline_uuid: taxi_to_postgres
+  schedule_interval: '@once'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-25
+  status: inactive
+  variables:
+    batch_size: 64000
+    is_replace: false
+    service: yellow
+    source: backup
+    year: 2020
+- envs: []
+  last_enabled_at: 2024-02-26 02:47:56.671717+00:00
+  name: green_2020
+  pipeline_uuid: taxi_to_postgres
+  schedule_interval: '@once'
+  schedule_type: time
+  settings: {}
+  sla: null
+  start_time: 2024-02-25
+  status: inactive
+  variables:
+    batch_size: 64000
+    is_replace: false
+    service: green
+    source: backup
+    year: 2020
