@@ -50,9 +50,9 @@ def csv_to_parquet(service, response_object_content):
     df = pd.read_csv(
         io.BytesIO(response_object_content),
         dtype=taxi_dtypes[service],
+        parse_dates=taxi_parse_dates[service],
         compression="gzip",
     )
-    df[taxi_parse_dates[service]] = df[taxi_parse_dates[service]].apply(pd.to_datetime)
     df.columns = df.columns.str.lower()
     return df.to_parquet()
 
