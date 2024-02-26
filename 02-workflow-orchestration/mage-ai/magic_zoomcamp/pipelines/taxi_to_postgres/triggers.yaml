@@ -8,7 +8,7 @@ triggers:
   settings: {}
   sla: null
   start_time: 2024-02-25 00:00:00
-  status: active
+  status: inactive
   variables:
     batch_size: 64000
     is_replace: true
