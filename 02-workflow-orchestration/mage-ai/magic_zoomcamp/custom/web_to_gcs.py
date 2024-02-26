@@ -8,6 +8,8 @@ import pandas as pd
 import requests
 from google.cloud import storage
 
+from magic_zoomcamp.utils.dtypes import taxi_dtypes, taxi_parse_dates
+
 if "custom" not in globals():
     from mage_ai.data_preparation.decorators import custom
 if "test" not in globals():
@@ -44,17 +46,20 @@ def get_files_from_web(service, date_range, session, source):
         yield get_file_from_web(service, date, session, source)
 
 
-def csv_to_parquet(response_object_content):
-    df = pd.read_csv(io.BytesIO(response_object_content), compression="gzip")
-    date_columns = df.columns[df.columns.str.contains("date")]
-    df[date_columns] = df[date_columns].apply(pd.to_datetime)
+def csv_to_parquet(service, response_object_content):
+    df = pd.read_csv(
+        io.BytesIO(response_object_content),
+        dtype=taxi_dtypes[service],
+        parse_dates=taxi_parse_dates[service],
+        compression="gzip",
+    )
     return df.to_parquet()
 
 
-def upload_to_gcs(bucket, object_key, response_object, source="original"):
+def upload_to_gcs(service, bucket, object_key, response_object, source="original"):
     data = response_object.content
     if source != "original":
-        data = csv_to_parquet(data)
+        data = csv_to_parquet(service, data)
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket)
     blob = bucket.blob(object_key)
@@ -97,5 +102,5 @@ def web_to_gcs(*args, **kwargs):
     with requests.Session() as session:
         for response in get_files_from_web(service, date_range, session, source):
             object_key = obtain_object_key(service, year, response, source)
-            upload_to_gcs(BUCKET, object_key, response, source)
+            upload_to_gcs(service, BUCKET, object_key, response, source)
             print(f"Uploading {object_key} successful")
