@@ -3,7 +3,7 @@ taxi_dtypes = {
         "VendorID": "Int64",
         "passenger_count": "Int64",
         "trip_distance": "Float64",
-        "RatecodeID": "Float64",
+        "RatecodeID": "Int64",
         "store_and_fwd_flag": "string",
         "PULocationID": "Int64",
         "DOLocationID": "Int64",
@@ -20,7 +20,7 @@ taxi_dtypes = {
     "green": {
         "VendorID": "Int64",
         "store_and_fwd_flag": "string",
-        "RatecodeID": "Float64",
+        "RatecodeID": "Int64",
         "PULocationID": "Int64",
         "DOLocationID": "Int64",
         "passenger_count": "Int64",
