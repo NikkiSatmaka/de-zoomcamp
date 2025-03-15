@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-import subprocess
 from pathlib import Path
 from time import time
 
-import pandas as pd
+import polars as pl
+import requests
 from sqlalchemy import create_engine
 
 
@@ -20,32 +20,37 @@ def main(params):
     url = params.url
     csv_name = "output" + "".join(Path(url).suffixes)
 
-    subprocess.run(["wget", url, "-O", csv_name])
+    r = requests.get(url)
+    with open(csv_name, "wb") as f:
+        f.write(r.content)
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
 
-    df_iter = pd.read_csv(csv_name, parse_dates=[1, 2], iterator=True, chunksize=100000)
+    lf = pl.scan_csv(csv_name, try_parse_dates=True)
+    n_records = lf.select(pl.len()).collect().item()
 
-    df = next(df_iter)
+    lf.head(n=0).collect().write_database(
+        table_name=table_name,
+        connection=engine,
+        if_table_exists="replace",
+        engine="sqlalchemy",
+    )
 
-    df.head(n=0).to_sql(name=table_name, con=engine, if_exists="replace")
-
-    df.to_sql(name=table_name, con=engine, if_exists="append")
-
-    while True:
+    batch_size = 10_000
+    for i in range(0, n_records, batch_size):
         t_start = time()
 
-        try:
-            df = next(df_iter)
-        except StopIteration:
-            print("finished all iteration")
-            break
-        else:
-            df.to_sql(name=table_name, con=engine, if_exists="append")
+        lf.slice(i, i + batch_size).collect().write_database(
+            table_name="yellow_taxi_data",
+            connection=engine,
+            engine="sqlalchemy",
+            if_table_exists="append",
+        )
 
-            t_end = time()
+        t_end = time()
 
-            print(f"inserted another chunk, took {t_end - t_start:.3f} seconds")
+        print(f"inserted another chunk, took {t_end - t_start:.3f} seconds")
+    print("finished all iteration")
 
 
 if __name__ == "__main__":
