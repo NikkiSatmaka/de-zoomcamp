@@ -1,6 +1,5 @@
 services:
-  db:
-    container_name: postgres
+  postgres:
     image: postgres:17-alpine
     environment:
       POSTGRES_USER: "postgres"
@@ -9,7 +8,7 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - vol-pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
       - ./container/postgres:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "pg_isready", "-d", "ny_taxi", "-U", "postgres"]
@@ -18,15 +17,14 @@ services:
       start_period: 5s
 
   pgadmin:
-    container_name: pgadmin
     image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: "pgadmin@pgadmin.com"
       PGADMIN_DEFAULT_PASSWORD: "pgadmin"
     ports:
-      - "8080:80"
+      - "8083:80"
     volumes:
-      - vol-pgadmin_data:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
 
   minio:
     image: minio/minio:latest
@@ -35,7 +33,7 @@ services:
       - "9000:9000"
       - "9001:9001"
     volumes:
-      - vol-minio_data:/data
+      - minio_data:/data
     env_file:
       - ./container/minio/.env
     healthcheck:
@@ -57,10 +55,28 @@ services:
     command: ["-c", "/minio-bootstrap.sh"]
     restart: no
 
+  kestra:
+    image: kestra/kestra:latest
+    user: "root"
+    command: server standalone --config /etc/config/application.yaml
+    volumes:
+      - kestra_data:/app/storage
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/kestra-wd:/tmp/kestra-wd
+      - ./container/kestra/application.yaml:/etc/config/application.yaml:ro
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    depends_on:
+      postgres:
+        condition: service_started
+
 volumes:
-  vol-pgdata:
-    name: vol-pgdata
-  vol-pgadmin_data:
-    name: vol-pgadmin_data
-  vol-minio_data:
-    name: vol-minio_data
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+  minio_data:
+    driver: local
+  kestra_data:
+    driver: local
