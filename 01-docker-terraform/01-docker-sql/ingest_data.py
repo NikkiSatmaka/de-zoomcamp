@@ -5,8 +5,8 @@ import argparse
 from pathlib import Path
 from time import time
 
+import niquests
 import polars as pl
-import requests
 from sqlalchemy import create_engine
 
 
@@ -20,8 +20,9 @@ def main(params):
     url = params.url
     csv_name = "output" + "".join(Path(url).suffixes)
 
-    r = requests.get(url)
+    r = niquests.get(url)
     with open(csv_name, "wb") as f:
+        assert r.content is not None
         f.write(r.content)
 
     engine = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{db}")
